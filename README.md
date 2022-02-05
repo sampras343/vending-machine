@@ -1,1 +1,1 @@
-# vending-machine
+# Vending Machine
