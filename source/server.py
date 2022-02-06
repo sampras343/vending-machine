@@ -4,6 +4,7 @@ import config
 from resources.racks import Racks
 from flask_cors import CORS
 
+
 server = Flask(__name__)
 CORS(server)
 api = Api(server)
