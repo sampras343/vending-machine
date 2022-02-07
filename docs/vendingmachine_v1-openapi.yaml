@@ -1,0 +1,224 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: Vending Machine API V1
+  description: APIs for Vending Machines
+  contact:
+    name: Sachin Sampras
+tags:
+  - name: models
+servers:
+  - url: vending-machines/api/v1
+    description: API Server URL for Vending Machines
+components:
+  schemas:
+    error:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            required:
+              - timestamp
+              - status
+              - error
+              - message
+            properties:
+              timestamp:
+                type: string
+                format: date-time
+                description: Timestamp in UTC at which point the error has occured
+              status:
+                type: integer
+                format: number
+                description: Status Code
+              error:
+                type: string
+                description: error Code from within application
+              message:
+                type: string
+                description: error message in US english
+              logref:
+                type: string
+    base-entity-without-id:
+      type: object
+      properties:
+        created-at:
+          type: string
+        last-modified-at:
+          type: string
+    base-entity:
+      allOf:
+        - $ref: '#/components/schemas/base-entity-without-id'
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+    machine-details:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/base-entity-without-id'
+          - type: object
+            properties:
+              model-type:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  id:
+                    type: string
+                    format: uuid
+                  racks:
+                    type: object
+                    properties:
+                      max-racks:
+                        type: number
+                      max-products-per-rack:
+                        type: number
+              
+    page:
+      type: object
+      properties:
+        number:
+          type: integer
+        size:
+          type: integer
+        total-elements:
+          type: integer
+        total-pages:
+          type: integer
+  responses:
+    import-successful:
+      description: 'Configuration imported successfully, job has been created'
+      content:
+        application/json:
+          schema:
+            type: string
+    unsupported-method:
+      description: Unsupported method used
+      headers:
+        Allow:
+          schema:
+            type: string
+          description: List of HTTP methods that are allowed
+    status-conflict:
+      description: Configurator status denys client access
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    duplication-conflict:
+      description: Conflict due to duplicate values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    could-not-find-object:
+      description: Could not retrieve given object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    generic-error:
+      description: Something went wrong
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    unauthorized-error:
+      description: Access token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    operation-failed-error:
+      description: Operations failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    recover-version-not-compatible:
+      description: Databus Operations failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    mutliple-selection-error:
+      description: Multiple Devices selected
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    invalid-certificates:
+      description: Invalid Cert-Key Pair
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    invalid-input:
+      description: Invalid Input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+  securitySchemes:
+    bearer-auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearer-auth: []
+paths:
+  /models:
+    get:
+      tags:
+        - models
+      operationId: list-models
+      description: List all the registerd machines in the system
+      parameters:
+        - name: device-id
+          in: query
+          description: Device ID
+          required: false
+          schema:
+            type: string
+        - name: size
+          in: query
+          description: Page Size. Number of entries to return in one page.
+          required: false
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: Page Index.
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully Retrieved the List of Users associated with a specific device
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      models:
+                        items:
+                          $ref: '#/components/schemas/machine-details'
+                  - type: object
+                    properties:
+                      page:
+                        $ref: '#/components/schemas/page'
+        '401':
+          $ref: '#/components/responses/unauthorized-error'
+        '404':
+          $ref: '#/components/responses/could-not-find-object'
+        '405':
+          $ref: '#/components/responses/unsupported-method'
+        '502':
+          $ref: '#/components/responses/operation-failed-error'
+        default:
+          $ref: '#/components/responses/generic-error'

@@ -3,7 +3,6 @@ Wrap parameters parsing
 As it's quite ugly and messy
 """
 from functools import wraps
-
 from flask_restful import reqparse
 
 

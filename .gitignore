@@ -1,2 +1,6 @@
 __pycache__
 *.log
+*coverage*
+*.html
+*.css
+*assets*

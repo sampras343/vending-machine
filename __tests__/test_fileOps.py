@@ -1,7 +1,6 @@
 from unittest import mock, TestCase
 from source.util.fileOps import loadJSONFile
 from source.util.constants import Constants
-from unittest.mock import MagicMock
 
 
 # @mock.patch('source.util.fileOps.constants.Constants.APP_STORAGE_PATH', return_value = str('__tests__/dummyFiles/'))

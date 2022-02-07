@@ -1,0 +1,19 @@
+{
+    
+    "products": [
+        {
+            "product-id": "123",
+            "name": "Brittania",
+            "created-at": "time",
+            "category-id": "cat1",
+            "cost": 20,
+            "description": "This is a biscuit",
+            "offers": [
+                {
+                    "discount": 20,
+                    "type": "percentage"
+                }
+            ]
+        }
+    ]
+}
