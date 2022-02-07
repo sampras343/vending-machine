@@ -1,7 +1,6 @@
 """
 Define the REST verbs relative to the Racks
 """
-from re import L
 from flask_restful import Resource
 from util import parse_params
 from flask.json import jsonify

@@ -1,0 +1,16 @@
+{
+    "categories": [
+        {
+            "id": "cat1",
+            "name": "Category 1",
+            "created-at": "time",
+            "denomination": "rupee"
+        },
+        {
+            "id": "cat2",
+            "name": "Category 2",
+            "created-at": "time",
+            "denomination": "rupee"
+        }
+    ]
+}

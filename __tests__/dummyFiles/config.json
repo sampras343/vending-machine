@@ -1,3 +1,33 @@
 {
-    "dummy": "test"
+    "machine-details": [
+        {
+            "id": "xyz",
+            "name": "Machine1",
+            "model-id": "modelA_id1",
+            "address": {
+                "line1": "E City",
+                "line2": "Phase 1",
+                "landmark": "Aratt",
+                "city": "Blr",
+                "state": "Ktk",
+                "country": "India",
+                "pin": "560100"
+            },
+            "racks": [
+                {
+                    "id": "rack1",
+                    "name": "Rack 1",
+                    "created-at": "time",
+                    "last-modified-at": "time",
+                    "product": {
+                        "category-id": "cat1",
+                        "product-id": "123_prod",
+                        "quantity": 5,
+                        "created-at": "time",
+                        "last-modified-at": "time"
+                    }
+                }
+            ]
+        }
+    ]
 }
