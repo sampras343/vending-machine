@@ -3,18 +3,16 @@
         {
             "created-at": "time",
             "last-modified-at": "time",
-            "model-type": {
-                "name": "model A",
-                "id": "modelA_id1",
-                "racks": {
-                    "max-racks": 10,
-                    "max-products-per-rack": 10
-                }
+            "name": "model A",
+            "id": "modelA_id1",
+            "racks": {
+                "max-racks": 10,
+                "max-products-per-rack": 10
             },
             "quantity": {
                 "total": 5,
-                "deployed": 2,
-                "in-warehouse": 2,
+                "active": 2,
+                "inactive": 2,
                 "damaged": 1,
                 "archived": 1
             }

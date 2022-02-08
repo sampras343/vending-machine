@@ -1,22 +1,54 @@
 {
     "machine-model-details": [
         {
-            "created-at": "time",
-            "last-modified-at": "time",
-            "model-type": {
-                "name": "model A",
-                "id": "modelA_id1",
-                "racks": {
-                    "max-racks": 10,
-                    "max-products-per-rack": 10
-                }
+            "name": "Tesla_ModeA",
+            "racks": {
+                "max-racks": 10,
+                "max-products-per-rack": 10
             },
+            "id": "19558c79-aae6-4fc7-8704-f5aabb7f47bf",
+            "created-at": "2022-02-08T21:07:46.427031",
+            "last-modified-at": "2022-02-08T21:07:46.427473",
             "quantity": {
-                "total": 5,
-                "deployed": 2,
-                "in-warehouse": 2,
-                "damaged": 1,
-                "archived": 1
+                "total": 10,
+                "active": 0,
+                "inactive": 10,
+                "damaged": 0,
+                "archived": 0
+            }
+        },
+        {
+            "name": "Tesla_ModeAB",
+            "racks": {
+                "max-racks": 10,
+                "max-products-per-rack": 10
+            },
+            "id": "05426929-efc1-47ad-956f-c95097029353",
+            "created-at": "2022-02-08T21:51:23.009214",
+            "last-modified-at": "2022-02-08T21:51:23.009711",
+            "quantity": {
+                "total": 10,
+                "active": 0,
+                "inactive": 10,
+                "damaged": 0,
+                "archived": 0
+            }
+        },
+        {
+            "name": "Tesla_ModeABC",
+            "racks": {
+                "max-racks": 10,
+                "max-products-per-rack": 10
+            },
+            "id": "6e00c00f-af96-490b-8f1b-cbff0517c74f",
+            "created-at": "2022-02-08T21:52:12.388525",
+            "last-modified-at": "2022-02-08T21:52:12.388922",
+            "quantity": {
+                "total": 10,
+                "active": 0,
+                "inactive": 10,
+                "damaged": 0,
+                "archived": 0
             }
         }
     ]

@@ -55,28 +55,24 @@ components:
             id:
               type: string
               format: uuid
+    model-details:
+      type: object
+      properties:
+        name:
+          type: string
+        racks:
+          type: object
+          properties:
+            max-racks:
+              type: number
+            max-products-per-rack:
+              type: number
     machine-details:
       type: array
       items:
         allOf:
-          - $ref: '#/components/schemas/base-entity-without-id'
-          - type: object
-            properties:
-              model-type:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  id:
-                    type: string
-                    format: uuid
-                  racks:
-                    type: object
-                    properties:
-                      max-racks:
-                        type: number
-                      max-products-per-rack:
-                        type: number
+          - $ref: '#/components/schemas/base-entity'
+          - $ref: '#/components/schemas/model-details'
               
     page:
       type: object
@@ -176,14 +172,8 @@ paths:
       tags:
         - models
       operationId: list-models
-      description: List all the registerd machines in the system
+      description: List all the registered models in the system
       parameters:
-        - name: device-id
-          in: query
-          description: Device ID
-          required: false
-          schema:
-            type: string
         - name: size
           in: query
           description: Page Size. Number of entries to return in one page.
@@ -198,7 +188,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: Successfully Retrieved the List of Users associated with a specific device
+          description: Successfully Retrieved the List of models registered in the system
           content:
             application/json:
               schema:
@@ -222,3 +212,59 @@ paths:
           $ref: '#/components/responses/operation-failed-error'
         default:
           $ref: '#/components/responses/generic-error'
+    post:
+      tags:
+        - models
+      operationId: add-model
+      description: Add or Register a new model to the system
+      requestBody:
+        description: Fields required to create a new model
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/model-details'
+                - type: object
+                  properties:
+                    quantity:
+                      type: number
+                  
+      responses:
+        '200':
+          description: Successfully created the user
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/model-details'
+                  - $ref: '#/components/schemas/base-entity'
+                  - type: object
+                    properties:
+                      quantity:
+                        type: object
+                        properties:
+                          total:
+                            type: number
+                          active:
+                            type: number
+                          inactive:
+                            type: number
+                          damaged:
+                            type: number
+                          archived:
+                            type: number
+        '401':
+          $ref: '#/components/responses/unauthorized-error'
+        '405':
+          $ref: '#/components/responses/unsupported-method'
+        '409':
+          $ref: '#/components/responses/duplication-conflict'
+        '422':
+          $ref: '#/components/responses/invalid-input'
+        '502':
+          $ref: '#/components/responses/operation-failed-error'
+        default:
+          $ref: '#/components/responses/generic-error'
+
+          

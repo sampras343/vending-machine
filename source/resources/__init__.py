@@ -1,2 +1,2 @@
-from .machine_models import MachineModelClass
-from .racks import Racks
+from .machine_models import machine_models
+from .racks import racks

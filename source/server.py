@@ -3,10 +3,12 @@ try:
     from flask_restful import Api
     from flask_cors import CORS
     from config import HOST, DEBUG, PORT
-    from resources import Racks, MachineModelClass
+    from resources.racks import Racks
+    from resources.machine_models import MachineModelClass
 except (ModuleNotFoundError, ImportError):
     from .config import HOST, DEBUG, PORT
-    from .resources import Racks, MachineModelClass
+    from .resources.racks import Racks
+    from .resources.machine_models import MachineModelClass
 
 
 server = Flask(__name__)

@@ -2,12 +2,14 @@ import logging
 from datetime import datetime
 
 class ErrorClass():
-    def __init__(self, message):
+    def __init__(self, message, logref):
         self.message = message
+        self.logref = logref
         
     def err(self):
         error = {
             'message': self.message,
-            'timestamp': datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            'timestamp': str(datetime.now().isoformat()),
+            'logref': self.logref
         }
         return error
