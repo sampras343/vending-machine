@@ -86,8 +86,10 @@ class MachineModelClass(Resource, CreateMachineModelObject):
                 fileWriteObj = {
                     'machine-model-details': machine_model
                 }
+                print("HEREEEE", fileWriteObj)
                 fileOps.writeJSONFile(fileWriteObj, Constants.MACHINE_MODEL_CONFIG_FILE)
                 logging.info('POST Model Operation Successful')
+                print("HEREEEE generatedObject", generatedObject)
                 return Response(json.dumps(generatedObject), status=200, mimetype='application/json')
 
             isModelExists = [x for x in modelInfo['machine-model-details'] if x["name"] == generatedObject["name"] ]

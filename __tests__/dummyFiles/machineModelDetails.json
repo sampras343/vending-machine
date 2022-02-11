@@ -1,31 +1,14 @@
 {
     "machine-model-details": [
         {
-            "created-at": "time",
-            "last-modified-at": "time",
-            "name": "model A",
-            "id": "modelA_id1",
+            "name": "Test_ModelABCS",
             "racks": {
                 "max-racks": 10,
                 "max-products-per-rack": 10
             },
-            "quantity": {
-                "total": 5,
-                "active": 2,
-                "inactive": 2,
-                "damaged": 1,
-                "archived": 1
-            }
-        },
-        {
-            "name": "TeslaModel_123A",
-            "racks": {
-                "max-racks": 10,
-                "max-products-per-rack": 10
-            },
-            "id": "3ca08f88-2e04-475c-92b5-6df0843b92f2",
-            "created-at": "2022-02-11T20:54:27.509391",
-            "last-modified-at": "2022-02-11T20:54:27.509987",
+            "id": "ec7e14bf-11d3-4039-a2ba-6283d7cb560f",
+            "created-at": "2022-02-12T00:39:24.233010",
+            "last-modified-at": "2022-02-12T00:39:24.233631",
             "quantity": {
                 "total": 10,
                 "active": 0,
