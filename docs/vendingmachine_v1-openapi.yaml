@@ -229,7 +229,6 @@ paths:
                   properties:
                     quantity:
                       type: number
-                  
       responses:
         '200':
           description: Successfully created the user

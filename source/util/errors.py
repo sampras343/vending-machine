@@ -6,7 +6,7 @@ class ErrorClass():
         self.message = message
         self.logref = logref
         
-    def err(self):
+    def generateErr(self):
         error = {
             'message': self.message,
             'timestamp': str(datetime.now().isoformat()),

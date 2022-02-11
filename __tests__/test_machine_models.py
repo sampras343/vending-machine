@@ -112,3 +112,42 @@ class Test_MachineModelClass(unittest.TestCase):
         response_json = json.loads(response.data.decode("utf-8"))
         expectedMessage = 'Invalid Input'
         self.assertEqual(response_json['errors']['message'], expectedMessage)
+
+        ''' TEST 2 :: Cannot add Duplicates  '''
+        # GIVEN: A valid input is provided
+        # WHEN: POST method is called 
+        # AND: the model is already registered
+        # THEN: Error stating that the model cannot be registerd as it is already available
+        inputData = {
+            "name": "model A",
+            "quantity": 10,
+            "racks": {
+                "max-racks": 10,
+                "max-products-per-rack": 10
+            }
+        }
+        response1 = self.client.post("/machine-models", content_type="application/json", data=json.dumps(inputData))
+        self.assertEqual(response1.status_code, 400)
+        response_json1 = json.loads(response1.data.decode("utf-8"))
+        expectedMessage1 = 'Entry available. Cannot add duplicates'
+        self.assertEqual(response_json1['errors']['message'], expectedMessage1)
+
+        ''' TEST 3 :: Successfully registered model  '''
+        # GIVEN: A valid input is provided
+        # WHEN: POST method is called 
+        # AND: the model is not available already
+        # THEN: the model should be successfully registered
+        inputData = {
+            "name": "TeslaModel_123A",
+            "quantity": 10,
+            "racks": {
+                "max-racks": 10,
+                "max-products-per-rack": 10
+            }
+        }
+        response2 = self.client.post("/machine-models", content_type="application/json", data=json.dumps(inputData))
+        self.assertEqual(response2.status_code, 200)
+        response_json2 = json.loads(response2.data.decode("utf-8"))
+        expectedMessage2 = inputData['name']
+        self.assertEqual(response_json2['name'], expectedMessage2)
+

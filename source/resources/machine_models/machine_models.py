@@ -67,32 +67,16 @@ class MachineModelClass(Resource, CreateMachineModelObject):
             return outputConfig
         except Exception as e:
             logging.error(e)
-            errorObj = warlock.model_factory(error_schema.ERROR)
-            err = {
-                    'errors': errorObj(
-                        message='Something went wrong',
-                        timestamp=str(datetime.now()),
-                        logref='something.wrong.get.models'
-                    )
-                }
-            return Response(json.dumps(err), status=502, mimetype='application/json')
+            err = ErrorClass('Something went wrong', 'something.wrong.get.models')
+            return Response(json.dumps({'errors': err.generateErr()}), status=502, mimetype='application/json')
 
     def post(self):
         try:
             requestObj = request.get_json(force=True)
-            print("requestObj :: ", requestObj)
             v = Validate(requestObj, machine_model_schema.POST_REQ_MODEL)
-            print("v :: ", v)
             if v.validate() == False:
-                errorObj = warlock.model_factory(error_schema.ERROR)
-                err = {
-                    'errors': errorObj(
-                        message='Invalid Input',
-                        timestamp=str(datetime.now().isoformat()),
-                        logref='models.post.exception'
-                    )
-                }
-                return Response(json.dumps(err), status=422, mimetype='application/json')
+                err = ErrorClass('Invalid Input', 'models.post.invalid.input')
+                return Response(json.dumps({'errors': err.generateErr()}), status=422, mimetype='application/json')
             generatedObject = CreateMachineModelObject().generateNewObject(requestObj)
             modelState, modelInfo = fileOps.loadJSONFile(Constants.MACHINE_MODEL_CONFIG_FILE)
             if not modelState:
@@ -110,7 +94,7 @@ class MachineModelClass(Resource, CreateMachineModelObject):
             if len(isModelExists):
                 logging.error('Cannot add duplicates')
                 err = ErrorClass('Entry available. Cannot add duplicates', 'models.post.duplicates')
-                return Response(json.dumps({'errors': err.err()}), status=400, mimetype='application/json')
+                return Response(json.dumps({'errors': err.generateErr()}), status=400, mimetype='application/json')
             logging.info('No duplicates. Allowed to add')
             modelInfo['machine-model-details'].append(generatedObject)
             fileOps.writeJSONFile(modelInfo, Constants.MACHINE_MODEL_CONFIG_FILE)
@@ -119,4 +103,4 @@ class MachineModelClass(Resource, CreateMachineModelObject):
         except Exception as e:
             logging.error(e)
             err = ErrorClass('Something wrong', 'models.post.exception')
-            return Response(json.dumps({'errors': err.err()}), status=502, mimetype='application/json')
+            return Response(json.dumps({'errors': err.generateErr()}), status=502, mimetype='application/json')

@@ -16,6 +16,23 @@
                 "damaged": 1,
                 "archived": 1
             }
+        },
+        {
+            "name": "TeslaModel_123A",
+            "racks": {
+                "max-racks": 10,
+                "max-products-per-rack": 10
+            },
+            "id": "3ca08f88-2e04-475c-92b5-6df0843b92f2",
+            "created-at": "2022-02-11T20:54:27.509391",
+            "last-modified-at": "2022-02-11T20:54:27.509987",
+            "quantity": {
+                "total": 10,
+                "active": 0,
+                "inactive": 10,
+                "damaged": 0,
+                "archived": 0
+            }
         }
     ]
 }
