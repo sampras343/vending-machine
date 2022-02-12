@@ -16,6 +16,23 @@
                 "damaged": 0,
                 "archived": 0
             }
+        },
+        {
+            "name": "Model1",
+            "racks": {
+                "max-racks": 10,
+                "max-products-per-rack": 10
+            },
+            "id": "634a163c-560b-43bd-ad09-c9636d1aebe3",
+            "created-at": "2022-02-12T19:37:22.283690",
+            "last-modified-at": "2022-02-12T19:37:22.284184",
+            "quantity": {
+                "total": 10,
+                "active": 0,
+                "inactive": 10,
+                "damaged": 0,
+                "archived": 0
+            }
         }
     ]
 }

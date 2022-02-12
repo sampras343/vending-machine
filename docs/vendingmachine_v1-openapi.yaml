@@ -67,7 +67,7 @@ components:
               type: number
             max-products-per-rack:
               type: number
-    machine-details:
+    model-list:
       type: array
       items:
         allOf:
@@ -197,7 +197,7 @@ paths:
                     properties:
                       models:
                         items:
-                          $ref: '#/components/schemas/machine-details'
+                          $ref: '#/components/schemas/model-list'
                   - type: object
                     properties:
                       page:
@@ -229,6 +229,7 @@ paths:
                   properties:
                     quantity:
                       type: number
+                  
       responses:
         '200':
           description: Successfully created the user
@@ -265,5 +266,51 @@ paths:
           $ref: '#/components/responses/operation-failed-error'
         default:
           $ref: '#/components/responses/generic-error'
-
+  /models/{id}:
+    get:
+      tags:
+        - models
+      operationId: get-individual-models
+      description: Get information of a specific model
+      parameters:
+        - name: id
+          in: path
+          description: The unique id of the model
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successfully retieve the individual model information registered in the system
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/model-details'
+                  - $ref: '#/components/schemas/base-entity'
+                  - type: object
+                    properties:
+                      quantity:
+                        type: object
+                        properties:
+                          total:
+                            type: number
+                          active:
+                            type: number
+                          inactive:
+                            type: number
+                          damaged:
+                            type: number
+                          archived:
+                            type: number
+        '401':
+          $ref: '#/components/responses/unauthorized-error'
+        '404':
+          $ref: '#/components/responses/could-not-find-object'
+        '405':
+          $ref: '#/components/responses/unsupported-method'
+        '502':
+          $ref: '#/components/responses/operation-failed-error'
+        default:
+          $ref: '#/components/responses/generic-error'
           

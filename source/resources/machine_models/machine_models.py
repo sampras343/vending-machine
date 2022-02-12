@@ -5,18 +5,15 @@ import logging
 import json
 import math
 import warlock
-import uuid
-from datetime import datetime 
 from flask_restful import Resource
 from flask import request, Response
-from flask_restful.reqparse import Argument
 
 try:
     from util import fileOps, Constants, Validate, ErrorClass
-    from util.schemas import machine_model_schema, error_schema
+    from util.schemas import machine_model_schema
     from .machine_objects import CreateMachineModelObject
 except (ModuleNotFoundError, ImportError):
-    from source.util.schemas import machine_model_schema, error_schema
+    from source.util.schemas import machine_model_schema
     from source.util import fileOps, Constants, Validate, ErrorClass
     from source.resources.machine_models.machine_objects import CreateMachineModelObject
 
@@ -24,14 +21,13 @@ except (ModuleNotFoundError, ImportError):
         
 
 
-class MachineModelClass(Resource, CreateMachineModelObject):
+class MachineModelClass(Resource):
     def __init__(self):
         pass
 
     def get(self):
         try:
-            modStatus, modelInfo = fileOps.loadJSONFile(
-                Constants.MACHINE_MODEL_CONFIG_FILE)
+            modStatus, modelInfo = fileOps.loadJSONFile(Constants.MACHINE_MODEL_CONFIG_FILE)
             pageObj = warlock.model_factory(machine_model_schema.PAGINATION)
             if not modStatus:
                 logging.warning('File not found')
@@ -48,8 +44,7 @@ class MachineModelClass(Resource, CreateMachineModelObject):
                 'models': modelInfo['machine-model-details'],
                 'page': pageObj(number=1, size=len(modelInfo['machine-model-details']))
             }
-            outputConfig['page']['total-elements'] = len(
-                modelInfo['machine-model-details'])
+            outputConfig['page']['total-elements'] = len(modelInfo['machine-model-details'])
             outputConfig['page']['total-pages'] = 1
             queryStr = json.loads(json.dumps(request.args))
             if 'page' not in queryStr.keys() or 'size' not in queryStr.keys():
@@ -86,10 +81,8 @@ class MachineModelClass(Resource, CreateMachineModelObject):
                 fileWriteObj = {
                     'machine-model-details': machine_model
                 }
-                print("HEREEEE", fileWriteObj)
                 fileOps.writeJSONFile(fileWriteObj, Constants.MACHINE_MODEL_CONFIG_FILE)
                 logging.info('POST Model Operation Successful')
-                print("HEREEEE generatedObject", generatedObject)
                 return Response(json.dumps(generatedObject), status=200, mimetype='application/json')
 
             isModelExists = [x for x in modelInfo['machine-model-details'] if x["name"] == generatedObject["name"] ]

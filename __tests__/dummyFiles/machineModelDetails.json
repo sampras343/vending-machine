@@ -6,9 +6,9 @@
                 "max-racks": 10,
                 "max-products-per-rack": 10
             },
-            "id": "ec7e14bf-11d3-4039-a2ba-6283d7cb560f",
-            "created-at": "2022-02-12T00:39:24.233010",
-            "last-modified-at": "2022-02-12T00:39:24.233631",
+            "id": "649b831b-c2ed-4cab-8778-3d626df1fda7",
+            "created-at": "2022-02-12T22:34:52.795093",
+            "last-modified-at": "2022-02-12T22:34:52.795480",
             "quantity": {
                 "total": 10,
                 "active": 0,
