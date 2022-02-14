@@ -18,7 +18,7 @@
             }
         },
         {
-            "name": "Model1",
+            "name": "Xyz",
             "racks": {
                 "max-racks": 10,
                 "max-products-per-rack": 10

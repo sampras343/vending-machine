@@ -215,7 +215,7 @@ class Test_MachineModelClass(unittest.TestCase):
         response3 = self.client.post("/machine-models", content_type="application/json", data=json.dumps(inputData3))
         self.assertEqual(response3.status_code, 502)
         response_json3 = json.loads(response3.data.decode("utf-8"))
-        expectedMessage3 = 'Something wrong'
+        expectedMessage3 = 'Something went wrong'
         self.assertEqual(response_json3['errors']['message'], expectedMessage3)
 
         ''' TEST 5 :: First Entry to be made  '''
